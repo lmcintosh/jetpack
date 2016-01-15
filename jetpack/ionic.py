@@ -10,10 +10,8 @@ import sys
 import numpy as np
 from numbers import Number
 from contextlib import contextmanager
-from emoji import emojize
-from pushover import Client
 
-__all__ = ['csv', 'as_percent', 'notify', 'unicodes', 'push', 'pem']
+__all__ = ['csv', 'as_percent', 'notify']
 
 
 def csv(filename, data, headers=None, fmt='%g'):
@@ -64,33 +62,6 @@ def as_percent(x, precision='0.2'):
         raise TypeError("Numeric type required")
 
 
-def push(message, title=''):
-    """
-    Send a notification via pushover
-
-    Parameters
-    ----------
-    message : string
-
-    title : string, optional
-
-    """
-    Client().send_message(emojize(message, use_aliases=True),
-                          title=emojize(title, use_aliases=True))
-
-
-def pem(message):
-    """
-    Print an emoijized string
-
-    Parameters
-    ----------
-    message : string
-
-    """
-    print(emojize(message, use_aliases=True))
-
-
 @contextmanager
 def notify(title='Loading'):
     """
@@ -110,7 +81,7 @@ def notify(title='Loading'):
 
     """
 
-    print(unicodes['arrow'] + ' ' + title + '... ', end='')
+    print(unicodes['arrow'] + ' ' + title + '... ')
     sys.stdout.flush()
     try:
         yield
